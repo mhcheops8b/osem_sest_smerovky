@@ -1,0 +1,47 @@
+\input texinfo
+@setfilename user_manual-sk.info
+@settitle Manual k programom uu_n, ss_n
+@setchapternewpage odd
+
+@ifinfo
+Toto je manual k programom uu_n, ss_n. Zatial iba vyvojova verzia
+v slovenskom jazyku bez diakritiky.
+
+Copyright @copyright{} 2003 Mgr. Marek Hycko
+@end ifinfo
+
+@contents
+@titlepage
+@sp 10
+@title Uvodna stranka
+@page
+
+@vskip 0pt plus 1filll
+Copyright @copyright{} 2003 Mgr. Marek Hycko
+@end titlepage
+
+@ifnottex
+@node Top, Uvod, ,
+@end ifnottex
+
+@menu
+* Uvod::			  Historia a dovody vzniku programov
+* Zakladne Pojmy: Pojmy.	  Zavedenie zakladnych pojmov
+* Pouzivanie programu uu_n: UU_N. Informacie o uu_n programe
+* Pouzivanie programu ss_n: SS_N. Informacie o ss_n programe
+@end menu
+@node Uvod, Pojmy, Top, Top
+@chapter Historia a dovody vzniku programov uu_n a ss_n
+@cindex Kapitola, prva
+Tu bude prva kapitola
+@node Pojmy, UU_N, Uvod, Top 
+@chapter Zakladne pojmy
+Tu bude druha kapitola
+@node UU_N, SS_N, Pojmy, Top 
+@chapter Pouzivanie programu uu_n
+Tu bude tretia
+@node SS_N, , UU_N, Top
+@chapter Pouzivanie programu ss_n
+Tu bude stvrta
+
+@bye

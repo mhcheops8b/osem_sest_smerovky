@@ -1,0 +1,2 @@
+`CHARAKTERY
+9

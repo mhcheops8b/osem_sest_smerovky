@@ -1,0 +1,2 @@
+vCOMAJ,UPRAVDU
+12
