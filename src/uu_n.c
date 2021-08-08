@@ -1286,6 +1286,8 @@ osm_usage (char *filename)
 	printf ("   --log      - zapisuje postupy riesenia do suboru <log_file>.\n");
 	printf ("   --dump	 - vypis obrazca po riadkoch, stlpcoch a uhloprieckach.\n");
 	printf ("   --syllabe  - lusti slabikovu osemsmerovku.\n");
+	printf ("   --special  - specialne lustenie pre otaznikove osemsmerovky. (Default)\n");
+	printf ("   --not_special - normalne lustenie (obsahuje moznost volit nasobnost slova 'n dd').\n");
 	printf ("   <osem_file> - subor s osemsmerovkou\n");
 	printf ("  <slova_file> - subor so slovami\n");
 	printf ("    <log_file> - log subor\n\n");
@@ -1414,6 +1416,8 @@ main (int argc, char **argv)
 				 * prevolby
 				 */
 			if (!strcmp (argv[1], "--test")
+				|| !strcmp(argv[1], "--special")
+				|| !strcmp(argv[1], "--not_special")
 			    || !strcmp (argv[1], "--prompt")
 			    || !strcmp (argv[1], "--log")
 			    || !strcmp (argv[1], "--dump")
@@ -1429,6 +1433,30 @@ main (int argc, char **argv)
 							   NOT_IGNORE_MULTIPLE,
 							   NOT_SPECIAL_SOLVE,
 							   0, 0);
+				}
+				else if (!strcmp(argv[1], "--special")) {
+					if (argc < 4) {
+						fprintf(stderr,
+							"Chyba: ocakava sa nazov suboru s obrazcom i slovami.\n");
+						osm_usage(argv[0]);
+						return 0;
+					}
+
+					lusti_kriz3_6(argv[2], argv[3], NOT_IGNORE_MULTIPLE,
+						SPECIAL_SOLVE, PRINT_SOLUTION, DO_NOT_PRINT_SUSED);
+
+				}
+				else if (!strcmp(argv[1], "--not_special")) {
+					if (argc < 4) {
+						fprintf(stderr,
+							"Chyba: ocakava sa nazov suboru s obrazcom i slovami.\n");
+						osm_usage(argv[0]);
+						return 0;
+					}
+
+					lusti_kriz3_6(argv[2], argv[3], NOT_IGNORE_MULTIPLE,
+						NOT_SPECIAL_SOLVE, PRINT_SOLUTION, DO_NOT_PRINT_SUSED);
+
 				}
 				else if (!strcmp (argv[1], "--test")) {
 					if (argc < 3) {
@@ -1453,7 +1481,7 @@ main (int argc, char **argv)
 					}
 					lusti_kriz3_6_prompt (argv[2],
 							      NOT_IGNORE_MULTIPLE,
-							      NOT_SPECIAL_SOLVE,
+							      SPECIAL_SOLVE,
 							      1, 1);
 					return 0;
 				}
@@ -1467,7 +1495,7 @@ main (int argc, char **argv)
 					lusti_kriz3_6_log (argv[2], argv[3],
 							   argv[4],
 							   NOT_IGNORE_MULTIPLE,
-							   NOT_SPECIAL_SOLVE,
+							   SPECIAL_SOLVE,
 							   0, 0);
 				}
 				else if (!strcmp (argv[1], "--dump")) {

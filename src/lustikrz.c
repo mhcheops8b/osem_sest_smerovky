@@ -498,7 +498,8 @@ lusti_kriz_word (OSEMSM * osm, char *line_buf, char *prg_buf,
 		 struct cesty *cst, int *def_cesta, int *lusti_pocet,
 		 int *forb_lim, int *opt1, int *opt2)
 {
-
+	/*fprintf(stdout, "Lusti pocet: %d\n", *lusti_pocet);*/
+	/*fprintf(stdout, "Special: %d\n", special_sol);*/
 	struct slovo slv;
 	struct osm_ries *riesenie, *min_ries = NULL;
 
@@ -561,11 +562,14 @@ lusti_kriz_word (OSEMSM * osm, char *line_buf, char *prg_buf,
 				fprintf (stderr,
 					 "Chyba na riadku %d: Za 'n' musi nasledovat pocet lusteni daneho slova.\n",
 					 line);
+				
 				free_kriz (osm);
 				if (!*def_cesta)
 					free_cesty (cst);
 				return 0;
 			}
+			
+			/*fprintf(stderr, "Lusti pocet: %d\n", *lusti_pocet); */
 
 			if (*lusti_pocet < 1) {
 				fprintf (stderr,
