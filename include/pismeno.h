@@ -11,9 +11,9 @@
  1  2  3 4 5  6 7  8   9    0 1  2 3 4 5   6  7  8 9 0 1  2  3
  a ,a :a b c vc d vd `dz `dvz e ,e f g h `ch  i ,i j k l ,l vl
 
-  2                3                       4
-  3 4 5  6 7  8  9 0 1 2  3 4  5 6  7 8  9 0 1 2 3  4 5  6 7 8 9 
- vl m n vn o ,o vo p q r ,r s vs t vt u ,u v w x y ,y z vz ? - :u
+  2                3                       4                      5
+  3 4 5  6 7  8  9 0 1 2  3 4  5 6  7 8  9 0 1 2 3  4 5  6 7 8 9  0 
+ vl m n vn o ,o vo p q r ,r s vs t vt u ,u v w x y ,y z vz ? - :u vr
 */
 
 /*const char *pism[];*/
