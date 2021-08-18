@@ -21,7 +21,7 @@ typedef struct table
 TABLE;
 
 /*ELEM all_elem[], dlz_elem[], mak_elem[], bod_elem[];*/
-struct table all_table, dlz_table, mak_table, bod_table;
+extern struct table all_table, dlz_table, mak_table, bod_table;
 int     is_in_table (struct table *tbl, char key);
 int     check_char (char **poc, struct table *tbl, char *msg_1, char *msg_2);
 int     check_char_2 (char **poc);

@@ -5,6 +5,7 @@
 int create_bitmap1d_ulm (Bitmap_1D_ulm * bmp, int size_of_bitmap) {
 	int     data_size, pom;
 
+	bmp->size_of_bitmap = size_of_bitmap;
 	bmp->bit_size_of_data_elem = 8 * sizeof (unsigned long int);
 	data_size = size_of_bitmap / bmp->bit_size_of_data_elem +
 		(size_of_bitmap % bmp->bit_size_of_data_elem ? 1 : 0);
@@ -37,7 +38,7 @@ void set_bit_bitmap1d_ulm (Bitmap_1D_ulm * bmp, int _bit_no) {
 
 	data_no = _bit_no / bmp->bit_size_of_data_elem;
 	bit_no = _bit_no % bmp->bit_size_of_data_elem;
-	bmp->bitmap_data[data_no] |= 1 << bit_no;
+	bmp->bitmap_data[data_no] |= (unsigned long int)1 << bit_no;
 }
 
 void clear_bit_bitmap1d_ulm (Bitmap_1D_ulm * bmp, int _bit_no) {
@@ -46,7 +47,7 @@ void clear_bit_bitmap1d_ulm (Bitmap_1D_ulm * bmp, int _bit_no) {
 
 	data_no = _bit_no / bmp->bit_size_of_data_elem;
 	bit_no = _bit_no % bmp->bit_size_of_data_elem;
-	bmp->bitmap_data[data_no] &= ~(1 << bit_no);
+	bmp->bitmap_data[data_no] &= ~((unsigned long int)1 << bit_no);
 }
 
 int get_bit_bitmap1d_ulm (Bitmap_1D_ulm * bmp, int _bit_no) {
@@ -56,7 +57,7 @@ int get_bit_bitmap1d_ulm (Bitmap_1D_ulm * bmp, int _bit_no) {
 	data_no = _bit_no / bmp->bit_size_of_data_elem;
 	bit_no = _bit_no % bmp->bit_size_of_data_elem;
 
-	return (bmp->bitmap_data[data_no] & 1 << bit_no) >> bit_no;
+	return (bmp->bitmap_data[data_no] & (unsigned long int)1 << bit_no) >> bit_no;
 }
 
 void invert_bit_bitmap1d_ulm (Bitmap_1D_ulm * bmp, int bit_no) {

@@ -19,7 +19,7 @@ typedef struct _range_list {
 typedef struct _wordlist {
 	SLOVO *slv;
 
-	int is_link:1;
+	unsigned int is_link:1;
 	int is_forced_solution:1;
 	int is_range_list:1;
 	Forced_solution *fsolution;

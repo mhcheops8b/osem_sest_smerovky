@@ -549,6 +549,13 @@ create_kriz (char *filename, struct osemsm *osm)
 		fclose (fil);
 		return 0;
 	}
+	
+#if 0
+	printf("%d\n", osm->bitmap.size_x);	
+	printf("%d\n", osm->bitmap.size_y);	
+	printf("%d\n", osm->bitmap.bmp1d.bit_size_of_data_elem);
+	printf("%d\n", osm->bitmap.bmp1d.size_of_bitmap);
+#endif
 
 /*	if (create_bitmap(osm, pom_count + 1))
 		init_bitmap(osm, pom_count + 1);
@@ -674,7 +681,7 @@ create_kriz (char *filename, struct osemsm *osm)
 									fclose (fil);
 									return 0;
 								}
-								else if (!add_specchar_list (&osm->spec, x, y, buf[0]) < 0) {
+								else if (add_specchar_list (&osm->spec, x, y, buf[0]) < 0) {
 									free_kriz
 										(osm);
 									fclose (fil);
@@ -1227,7 +1234,7 @@ create_kriz_syl (char *filename, OSEMSM_SYL * osm)
 									fclose (fil);
 									return 0;
 								}
-								else if (!add_specchar_list (&osm->spec, x, y, buf[0]) < 0) {
+								else if (add_specchar_list (&osm->spec, x, y, buf[0]) < 0) {
 									free_kriz_syl
 										(osm);
 									fclose (fil);

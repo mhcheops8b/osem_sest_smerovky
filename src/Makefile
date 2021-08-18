@@ -1,8 +1,8 @@
 CC = gcc
-CFLAGS = -Wall -O2 --pedantic --ansi -I ../include
+CFLAGS = -Wall -O2 --pedantic --ansi -I ../include  -Wunused-variable
 #CFLAGS = -Wall -O2 --pedantic --ansi -I ../include -DOSM_DEBUG
-#EXE_EXT = 
-EXE_EXT = .exe
+EXE_EXT = 
+#EXE_EXT = .exe
 UU_N_OBJECTS = bmp1dulm.o bmp2dulm.o cesty.o charpath.o chrslovo.o  \
 	find.o findsyl.o flosm.o flosmsyl.o lustikrz.o num_path.o obrfile.o   \
 	osm_ries.o osm_size.o osmtop.o pismeno.o position.o q_part.o q_sect.o \

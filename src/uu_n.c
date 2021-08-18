@@ -1386,6 +1386,41 @@ int
 main (int argc, char **argv)
 {
 
+#if 0
+{
+	int i;
+	for (i = 0; i < 64; i++)
+		printf("%d: %ld %lu\n", i, 1<<i, (unsigned long int)1 << i);
+	return 0;
+}
+#endif
+
+#if 0
+/* test of bitmap */
+{
+	Bitmap_2D_ulm test_bitmap;
+	int i, j;
+
+
+	create_bitmap2d_ulm(&test_bitmap, 9, 8);
+
+
+	set_bit_bitmap2d_ulm(&test_bitmap,0,3);
+	set_bit_bitmap2d_ulm(&test_bitmap,2,3);
+	clear_bit_bitmap2d_ulm(&test_bitmap,2,3);
+	clear_bit_bitmap2d_ulm(&test_bitmap,0,3);
+
+	for (i = 0; i < 9; i++)
+	for (j = 0; j < 8; j++)
+		{
+			printf("%d, %d : %d\n", i, j, get_bit_bitmap2d_ulm(&test_bitmap, i, j));
+		}
+
+	free_bitmap2d_ulm(&test_bitmap);
+	return -1;
+}
+#endif
+
 	if (argc < 2) {
 		fprintf (stderr,
 			 "Chyba: program musi byt spusteny s nejakymi volbami.\n");

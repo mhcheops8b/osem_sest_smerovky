@@ -1,7 +1,7 @@
 LN = cp
 #LN = ln -s
-#EXE_EXT =
-EXE_EXT = .exe
+EXE_EXT =
+#EXE_EXT = .exe
 all:
 	@make -C src
 	@rm -f uu_n$(EXE_EXT) ss_n$(EXE_EXT)

@@ -2,9 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include "charpath.h"
-//#define _CRT_SECURE_NO_WARNINGS
+/*#define _CRT_SECURE_NO_WARNINGS*/
 char   *default_char[] = { "C0" };
 char   *vlnka_char[] = { "CI+", "CI-", "CI++-", "CI--+" };
+
+struct char_path *default_char_path;
+struct char_path *vlnka_char_path;
+
 int
 create_char_path (struct char_path **pth, char *elem)
 {

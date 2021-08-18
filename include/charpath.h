@@ -6,8 +6,8 @@ typedef struct char_path
 	struct char_path *next;
 }
 CHAR_PATHS;
-struct char_path *default_char_path;
-struct char_path *vlnka_char_path;
+/*extern struct char_path *default_char_path;
+extern struct char_path *vlnka_char_path;*/
 int     create_char_path (struct char_path **pth, char *elem);
 int     add_char_path (struct char_path **pth, char *elem);
 void    free_char_path (struct char_path *pth);

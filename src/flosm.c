@@ -274,6 +274,16 @@ print_kriz3 (struct osemsm *osm)
 		}
 	}
 
+#if 0
+	for (j = 0; j < get_size_y_osm_size (&osm->osm_size); j++)
+	{
+		for (i = 0; i < get_size_x_osm_size (&osm->osm_size); i++) {
+			printf("%d", get_bit_bitmap2d_ulm (&osm->bitmap, i, j));
+		}
+		printf("\n");
+	}
+	printf("\n");
+#endif
 	for (j = 0; j < get_size_y_osm_size (&osm->osm_size); j++)
 		for (i = 0; i < get_size_x_osm_size (&osm->osm_size); i++) {
 
