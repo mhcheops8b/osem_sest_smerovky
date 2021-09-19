@@ -21,10 +21,10 @@ struct table dlz_table = { 10, dlz_elem };
 
 ELEM    mak_elem[] = {
 	{ 'C',  6} , { 'D',  8} , { 'L', 23} , { 'N', 26} , { 'O', 29} ,
-	{ 'S', 35} , { 'T', 37} , { 'Z', 46}, { 'R', 51}
+	{ 'S', 35} , { 'T', 37} , { 'Z', 46} , { 'R', 51} , { 'E', 52}
 };
 
-struct table mak_table = { 9, mak_elem };
+struct table mak_table = { 10, mak_elem };
 
 ELEM    bod_elem[] = {
 	{ 'A', 3} , { 'U', 49}
