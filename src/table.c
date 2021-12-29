@@ -14,10 +14,11 @@ struct table all_table = { 26, all_elem };
 
 ELEM    dlz_elem[] = {
 	{ 'A',  2} , { 'E', 12} , { 'I', 18} , { 'L', 22} , { 'O', 28} ,
-	{ 'R', 33} , { 'U', 39} , { 'Y', 44} , { '?', 50} 
+	{ 'R', 33} , { 'U', 39} , { 'Y', 44} , { '?', 50} , { '!', 53} ,
+        { '.', 54}	
 }; 
 
-struct table dlz_table = { 10, dlz_elem };
+struct table dlz_table = { 12, dlz_elem };
 
 ELEM    mak_elem[] = {
 	{ 'C',  6} , { 'D',  8} , { 'L', 23} , { 'N', 26} , { 'O', 29} ,
