@@ -3,3 +3,15 @@
 ################################################################################
 
 *.ipch
+*.suo
+*.db
+*.tlog
+*.obj
+*.exe
+*.ipdb
+/osem_sest_smerovky/Release/osem_sest_smerovky.iobj
+*.log
+*.pdb
+*.recipe
+/VS/.vs/osem_sest_smerovky/v16
+*~
