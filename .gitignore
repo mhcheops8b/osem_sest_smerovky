@@ -15,3 +15,5 @@
 *.recipe
 /VS/.vs/osem_sest_smerovky/v16
 *~
+/VS/osem/x64
+/VS/sest/x64
