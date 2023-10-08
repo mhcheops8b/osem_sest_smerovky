@@ -1312,8 +1312,14 @@ search7 (OSEMSM * krz,
 									     k))
 									{
 										find++;
-										if (opt_print_ries)
-											printf ("%d,%d -> %d,%d | dir: %d  == %d,%d\n", i, j, kx, ky, k, smery_get_dx (k), smery_get_dy (k));
+										if (opt_print_ries) {
+											if (find == 1) {
+												printf("Kandidati pre slovo ");
+												print_slovo(wrd);
+												printf(":\n");
+											}
+											printf(" * %d,%d -> %d,%d | dir: %d  == %d,%d\n", i, j, kx, ky, k, smery_get_dx(k), smery_get_dy(k));
+										}
 										if (opt_print_sused) {
 											write_sused
 												(krz,

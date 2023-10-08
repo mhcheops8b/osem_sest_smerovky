@@ -172,6 +172,11 @@ select_kriz3 (struct osemsm *osm, char *pth, struct slovo *wrd,
 
 /*	printf("Path: %s\n", pth);
 	printf("wrd->count: %d", wrd->count);*/
+	printf("Vyber pre slovo ");
+	print_slovo(wrd);
+	printf(":\n");
+	printf(" -> %d,%d | dir: %d  == %d,%d (cesta: %s)\n", sx, sy, dr, smery_get_dx(dr), smery_get_dy(dr), pth);
+	
 	for (i = 0; i < wrd->count; i++) {
 
 /*	printf("[%d,%d]",pom_x,pom_y);*/
