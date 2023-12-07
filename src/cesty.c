@@ -101,7 +101,7 @@ create_cesty (struct cesty *cst, char *elems)
 	pom_st = elems;
 	while (*pom) {
 		if (*pom == '|') {
-			pe = pom - pom_st;
+			pe = (int)(pom - pom_st);
 			cst->elems[i] =
 				(char *) malloc (sizeof (char) * (pe + 1));
 
@@ -126,7 +126,7 @@ create_cesty (struct cesty *cst, char *elems)
 		}
 		pom++;
 	}
-	pe = pom - pom_st;
+	pe = (int)(pom - pom_st);
 	cst->elems[i] = (char *) malloc (sizeof (char) * (pe + 1));
 
 	if (cst->elems[i] == NULL) {
