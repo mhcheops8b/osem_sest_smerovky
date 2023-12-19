@@ -182,21 +182,21 @@ create_path_str_numpath (struct num_path *pth, int zac_dir, char *prg)
 	else if (cyc_s == NULL)	/* neobsahuje cyklickú èas t.j.
 				   * dåka je po koniec reazca
 				 */
-		for_l = end_s - for_s;
+		for_l = (int)(end_s - for_s);
 
 	else			/* dåka po zaèiatok cyklickej èasti */
-		for_l = cyc_s - for_s;
+		for_l = (int)(cyc_s - for_s);
 
 	/* nastav dlzku cyklickej èasti */
 	if (cyc_s == NULL)	/* neobsahuje cyklickú èas */
 		cyc_l = 0;
 
 	else
-		cyc_l = end_s - cyc_s;	/* od zaèiatku po koniec reazca */
+		cyc_l = (int)(end_s - cyc_s);	/* od zaèiatku po koniec reazca */
 	if (for_s)
-		fors = for_s - pom;
+		fors = (int)(for_s - pom);
 	if (cyc_s)
-		cycs = cyc_s - pom;
+		cycs = (int)(cyc_s - pom);
 	if (!create_path_numpath (pth, for_l, cyc_l)) {
 		init_path_numpath (pth);
 		return 0;
@@ -309,21 +309,21 @@ create_path_str_ver2_numpath (struct num_path *pth, int zac_dir, char *prg)
 	else if (cyc_s == NULL)	/* neobsahuje cyklickú èas t.j.
 				   * dåka je po koniec reazca
 				 */
-		for_l = end_s - for_s;
+		for_l = (int)(end_s - for_s);
 
 	else			/* dåka po zaèiatok cyklickej èasti */
-		for_l = cyc_s - for_s;
+		for_l = (int)(cyc_s - for_s);
 
 	/* nastav dåku cyklickej èasti */
 	if (cyc_s == NULL)	/* neobsahuje cyklickú èas */
 		cyc_l = 0;
 
 	else
-		cyc_l = end_s - cyc_s;	/* od zaèiatku po koniec reazca */
+		cyc_l = (int)(end_s - cyc_s);	/* od zaèiatku po koniec reazca */
 	if (for_s)
-		fors = for_s - pom;
+		fors = (int)(for_s - pom);
 	if (cyc_s)
-		cycs = cyc_s - pom;
+		cycs = (int)(cyc_s - pom);
 	if (!create_path_numpath (pth, for_l, cyc_l)) {
 		init_path_numpath (pth);
 		return 0;

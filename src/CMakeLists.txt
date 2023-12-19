@@ -11,9 +11,11 @@ target_sources(cesty PRIVATE cesty.c ../include/cesty.h)
 
 add_library(charpath OBJECT)
 target_sources(charpath PRIVATE charpath.c ../include/charpath.h)
+target_compile_definitions(charpath PRIVATE _CRT_SECURE_NO_WARNINGS)
 
 add_library(chrslovo OBJECT)
 target_sources(chrslovo PRIVATE chrslovo.c ../include/chrslovo.h)
+target_compile_definitions(chrslovo PRIVATE _CRT_SECURE_NO_WARNINGS)
 
 add_library(find OBJECT)
 target_sources(find PRIVATE find.c ../include/find.h)
@@ -29,15 +31,19 @@ target_sources(flosmsyl PRIVATE flosmsyl.c ../include/flosmsyl.h)
 
 add_library(lustikrz OBJECT)
 target_sources(lustikrz PRIVATE lustikrz.c ../include/lustikrz.h)
+target_compile_definitions(lustikrz PRIVATE _CRT_SECURE_NO_WARNINGS)
 
 add_library(num_path OBJECT)
 target_sources(num_path PRIVATE num_path.c ../include/num_path.h)
+target_compile_definitions(num_path PRIVATE _CRT_SECURE_NO_WARNINGS)
 
 add_library(obrfile OBJECT)
 target_sources(obrfile PRIVATE obrfile.c ../include/obrfile.h)
+target_compile_definitions(obrfile PRIVATE _CRT_SECURE_NO_WARNINGS)
 
 add_library(osm_ries OBJECT)
 target_sources(osm_ries PRIVATE osm_ries.c ../include/osm_ries.h)
+target_compile_definitions(osm_ries PRIVATE _CRT_SECURE_NO_WARNINGS)
 
 add_library(osm_size OBJECT)
 target_sources(osm_size PRIVATE osm_size.c ../include/osm_size.h)
@@ -59,6 +65,7 @@ target_sources(q_sect PRIVATE q_sect.c ../include/q_sect.h)
 
 add_library(search OBJECT)
 target_sources(search PRIVATE search.c ../include/search.h)
+target_compile_definitions(search PRIVATE _CRT_SECURE_NO_WARNINGS)
 
 add_library(slovo OBJECT)
 target_sources(slovo PRIVATE slovo.c ../include/slovo.h)
@@ -81,10 +88,11 @@ target_sources(table PRIVATE table.c ../include/table.h)
 add_library(wrdlist OBJECT)
 target_sources(wrdlist PRIVATE wrdlist.c)
 
-add_executable(osm uu_n.c)
-target_link_libraries(osm PRIVATE bmp1dulm bmp2dulm cesty charpath 
+add_executable(osem_smerovky uu_n.c)
+target_link_libraries(osem_smerovky PRIVATE bmp1dulm bmp2dulm cesty charpath 
 	chrslovo find findsyl flosm flosmsyl lustikrz num_path
     obrfile osm_ries osm_size osmtop pismeno position q_part q_sect
 	search slovo smery specchar str_path syltop table wrdlist)
 
-add_executable(ssm ss_n.c)
+add_executable(sest_smerovky ss_n.c)
+target_compile_definitions(sest_smerovky PRIVATE _CRT_SECURE_NO_WARNINGS)
