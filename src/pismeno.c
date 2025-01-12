@@ -7,7 +7,7 @@ const char *pism[] =
 	"vO", "P", "Q", "R", ",R", "S", "vS", "T", "vT", "U", ",U", "V", "W",
 	"X",
 	"Y", ",Y", "Z",
-	"vZ", "?", "-", ":U", "`?", "vR", "vE", "!", "`."
+	"vZ", "?", "-", ":U", "`?", "vR", "vE", "!", "`.", ":E"
 };
 const char *
 get_pism (int num)

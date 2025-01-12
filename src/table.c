@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "table.h"
+
+/* last assigned 55 */
+
 ELEM    all_elem[] = {
 	{ 'A',  1} , { 'B',  4} , { 'C',  5} , { 'D',  7} , { 'E', 11} ,
 	{ 'F', 13} , { 'G', 14} , { 'H', 15} , { 'I', 17} , { 'J', 19} ,
@@ -28,10 +31,10 @@ ELEM    mak_elem[] = {
 struct table mak_table = { 10, mak_elem };
 
 ELEM    bod_elem[] = {
-	{ 'A', 3} , { 'U', 49}
+	{ 'A', 3} , { 'E', 55 }, { 'U', 49 }
 };
 
-struct table bod_table = { 2, bod_elem };
+struct table bod_table = { 3, bod_elem };
 
 int
 is_in_table (struct table *tbl, char key)
