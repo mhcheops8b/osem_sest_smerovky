@@ -12,6 +12,6 @@ int     create_char_path (struct char_path **pth, char *elem);
 int     add_char_path (struct char_path **pth, char *elem);
 void    free_char_path (struct char_path *pth);
 int     create_char_path_chrs (struct char_path **pth, int count, char **ps);
-int     init_char_path_defaults ();
+int     init_char_path_defaults (void);
 
 #endif /*  */

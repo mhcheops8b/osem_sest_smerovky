@@ -86,7 +86,7 @@ create_char_path_chrs (struct char_path **pth, int count, char **ps)
 }
 
 int
-init_char_path_defaults ()
+init_char_path_defaults (void)
 {
 	if (!create_char_path_chrs (&default_char_path, 1, default_char)) {
 		return 0;
