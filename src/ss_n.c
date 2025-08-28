@@ -5,6 +5,7 @@
 #define DIR_DELIM '/'
 #define OSM_DEBUG
 #undef OSM_DEBUG
+#define MY_UINT_BITSIZE	( (unsigned int)(8 * sizeof(unsigned int)) )
 char   *pism[] =
 	{ "", "A", ",A", ":A", "B", "C", "vC", "D", "vD", "`DZ", "`DvZ", "E",
 	",E", "F", "G", "H", "`CH", "I", ",I", "J", "K", "L", ",L", "vL", "M",
@@ -227,8 +228,8 @@ struct pismeno get_pismeno (SESTSM * krz, int pos_x, int pos_y);
 int     is_in_kriz (SESTSM * krz, int pos_x, int pos_y);
 int     is_non_void (SESTSM * krz, int pos_x, int pos_y);
 void    set_pismeno (SESTSM * krz, int pos_x, int pos_y, struct pismeno chr);
-int     find (SESTSM * krz, int pos_x, int pos_y, int dir, int count,
-	      struct pismeno *wrd);
+//int     find (SESTSM * krz, int pos_x, int pos_y, int dir, int count,
+//	      struct pismeno *wrd);
 void    select_kriz_2 (struct sestsm *ssm, int sx, int sy, int dir,
 		       int count);
 
@@ -240,7 +241,8 @@ get_pos (SESTSM * krz, int pos_x, int pos_y)
 	int     pom;
 
 	pom = pos_y * krz->siz_x;
-	pom -= (pos_y / 2) + krz->id;
+	pom -= (pos_y / 2) - (pos_y % 2 == 0 ? krz->id:0);
+	pom -= krz->id;
 	pom += pos_x;
 	return pom;
 }
@@ -256,7 +258,7 @@ is_in_kriz (SESTSM * krz, int pos_x, int pos_y)
 	if (pos_x < 0 || pos_x >= krz->siz_x || pos_y < 0
 	    || pos_y >= krz->siz_y)
 		return 0;
-	if ((pos_y % 2) + krz->id) {
+	if ( (pos_y + krz->id ) % 2 ) {
 		if (pos_x >= krz->siz_x - 1)
 			return 0;
 	}
@@ -476,7 +478,7 @@ int
 find_5 (SESTSM * krz, int pos_x, int pos_y, int dir, struct slovo *wrd,
 	int *kon_pos_x, int *kon_pos_y)
 {
-	int     pos = 0, match_count = 1, match = 1, new_pos_x, new_pos_y;
+	int     pos = 0, match_count = 1, match = 1, new_pos_x = 0, new_pos_y = 0;
 	struct pismeno pis;
 
 	if (!is_in_kriz (krz, pos_x, pos_y)) {
@@ -999,7 +1001,7 @@ create_slovo (char *poc, struct slovo *slv)
 			break;
 		default:
 			if (*pom == ' ' || *pom == '\t');
-
+			 
 			else {
 				slv->pism[i] = get_table (&all_table, *pom);
 				slv->pism[i++].id = 0;
@@ -1094,7 +1096,7 @@ create_kriz (char *filename, struct sestsm *ssm)
 
 #endif /*  */
 	count = siz_x * siz_y;
-	pom_count = count / 16 + ((count % 16) ? 1 : 0);
+	pom_count = count / MY_UINT_BITSIZE + ((count % MY_UINT_BITSIZE) ? 1 : 0);
 	count -= ((siz_y / 2) + id);
 	ssm->pole =
 		(struct pismeno *) malloc (count * sizeof (struct pismeno));
@@ -1199,9 +1201,9 @@ select_kriz_2 (struct sestsm *ssm, int sx, int sy, int dir, int count)
 
 	for (i = 0; i < count; i++) {
 		co = get_pos (ssm, px, py);
-		co_i = co / 16;
-		co_b = co % 16;
-		ssm->bitmap[co_i] |= (1 << co_b);
+		co_i = co / MY_UINT_BITSIZE;
+		co_b = co % MY_UINT_BITSIZE;
+		ssm->bitmap[co_i] |= ((unsigned int)1 << co_b);
 		get_next_field (ssm, px, py, dir, &px, &py);
 	}
 }
@@ -1219,8 +1221,8 @@ select_kriz_2 (struct sestsm *ssm, int sx, int sy, int dir, int count)
  if (ay>0) py=py/ay;
  for (i=0;i<d;i++) {
    co=sx+sy*osm->siz_x;
-   co_i=co / 16;
-   co_b=co % 16;
+   co_i=co / MY_UINT_SIZE;
+   co_b=co % MY_UINT_SIZE;
    osm->bitmap[co_i]|=(1<<co_b);
    sx+=px;
    sy+=py;
@@ -1235,8 +1237,8 @@ print_kriz (struct sestsm *ssm)
 	for (j = 0; j < ssm->siz_y; j++)
 		for (i = 0; i < ssm->siz_x - ((j + ssm->id) % 2); i++) {
 			co = get_pos (ssm, i, j);
-			co_i = co / 16;
-			co_b = co % 16;
+			co_i = co / MY_UINT_BITSIZE;
+			co_b = co % MY_UINT_BITSIZE;
 			if (!(ssm->bitmap[co_i] & (1 << co_b))
 			    && (get_pismeno (ssm, i, j)).l != EMPTY_CHAR) {
 				printf ("%s",
@@ -1254,8 +1256,8 @@ int i,j,co,co_i,co_b;
 for (j=0;j<osm->siz_y;j++)
 for (i=0;i<osm->siz_x;i++) {
   co=i+j*osm->siz_x;
-  co_i=co / 16;
-  co_b=co % 16;
+  co_i=co / MY_UINT_SIZE;
+  co_b=co % MY_UINT_SIZE;
  // if (co_b) co_i++;
   if (!(osm->bitmap[co_i] & (1 << co_b)) && !(get_pismeno(osm,i,j).id)) {
     printf("%s",pism[(get_pismeno(osm,i,j)).l],(get_pismeno(osm,i,j)).l);
@@ -1280,6 +1282,13 @@ lusti_kriz (char *file_1, char *file_2)
 		return 0;
 	}
 	if (create_kriz (file_1, &ssm)) {
+	//	for (int j = 0; j < 15;j++) {
+	//	for (int i = 0; i <=27; i++)
+	//		printf("%s ", pism[get_pismeno(&ssm, i,j).l]);
+	//	printf("\n");
+	//	}
+	//	return;
+
 		while (!feof (fil)) {
 			if (fgets (line_buf, 256, fil)) {
 				line++;
@@ -1318,9 +1327,77 @@ strip_path (char *path)
 		return pom + 1;
 }
 
+void test_get_pos() 
+{
+	printf("id: 0\n");
+	SESTSM testobr;
+	
+	testobr.siz_x = 4;
+	testobr.siz_y = 4;
+	testobr.id = 0;
+
+	for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < 4-(j%2)*(1-testobr.id); i++) {
+			if (is_in_kriz(&testobr, i, j))
+				printf("%d ", get_pos(&testobr, i, j));
+		}
+		printf("\n");
+	}
+	printf("id: 1\n");
+
+
+	testobr.siz_x = 4;
+	testobr.siz_y = 4;
+	testobr.id = 1;
+
+	for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < 4 - ((j+1) % 2) * testobr.id; i++) {
+			if (is_in_kriz(&testobr, i, j))
+				printf("%d ", get_pos(&testobr, i, j));
+		}
+		printf("\n");
+	}
+
+}
+
+
+//#include <direct.h>
+
+
+
 int
 main (int argc, char **argv)
 {
+	//char buffer[1024];
+	//printf("%s\n", _getcwd(buffer, 1024));
+	//printf("%s\n", argv[1]);
+	//return 0;
+	//test_get_pos();
+	//return 0;
+	//printf("%u\n", (int)sizeof(unsigned int));
+	//return 0;
+	//unsigned int test;
+	//for (int i = 0; i < 64; i++) {
+	//	test = (unsigned int)1 << i;
+	//	printf("%llu\n", test);
+	//}
+	//printf("HH: %llu", 1 << 33);
+	//return 0;
+
+	//SESTSM testobr;
+	//testobr.siz_x = 28;
+	//testobr.siz_y = 15;
+	//testobr.id = 1;
+
+	//int nx, ny;
+	//get_next_field(&testobr, 26, 7, 1, &nx, &ny);
+
+	//printf("%d %d\n", nx, ny);
+
+	//printf("%d\n", is_in_kriz(&testobr, 27, 7));
+	//printf("%d\n", get_pos(&testobr, 27, 7));
+
+	//return 0;
 	if (argc < 3) {
 		printf ("\nProgram lusti sestsmerovky v stvorcovej tabulke.\n");
 		printf ("\nUsage: %s <sest_file> <slova_file>\n",

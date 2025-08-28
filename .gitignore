@@ -17,6 +17,10 @@
 *~
 /VS/osem/x64
 /VS/sest/x64
+/VS/osem/Debug
+/VS/sest/Debug
 out
 .vs
 data/
+.vscode
+
