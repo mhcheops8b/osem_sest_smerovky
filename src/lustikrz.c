@@ -507,7 +507,8 @@ lusti_kriz_word (OSEMSM * osm, char *line_buf, char *prg_buf,
 
 	if (	strlen (line_buf) > 0 	&& line_buf[0] != '#' 	&& 
 		line_buf[0] != 't' 	&& line_buf[0] != 'n' 	&& 
-		line_buf[0] != 's' 	&& line_buf[0] != 'f') {	/* ak je slovo */
+		line_buf[0] != 's' 	&& line_buf[0] != 'f'   &&
+		line_buf[0] != 'o') {	/* ak je slovo */
 
 		if (create_slovo (line_buf, &slv)) {
 			min_ries = NULL;
@@ -576,6 +577,71 @@ lusti_kriz_word (OSEMSM * osm, char *line_buf, char *prg_buf,
 					 "Chyba na riadku %d: Pocet hladani slova musi byt kladny.(Nastavena default hodnota 1)\n",
 					 line);
 				*lusti_pocet = 1;
+			}
+		}
+		else if (line_buf[0] == 'o') {
+			if (line_buf[1] != 's' && line_buf[1] != 't') {
+				fprintf(stderr,
+					"Chyba na riadku %d: Za 'o' musi nasledovat 's' alebo 't'\n",
+					line);
+				free_kriz(osm);
+				if (!*def_cesta)
+					free_cesty(cst);
+				return 0;
+
+			}
+			else {
+				if (line_buf[1] == 's') {
+					int pos_x, pos_y, dir, count;
+					if (sscanf(&line_buf[2], "%d %d %d %d", &pos_x, &pos_y, &dir, &count) < 4) {
+						fprintf(stderr,
+							"Chyba na riadku %d: Za 'os' musi nasledovat <pos_x> <pos_y> <dir> <count>\n",
+							line);
+						free_kriz(osm);
+						if (!*def_cesta)
+							free_cesty(cst);
+						return 0;
+					}
+					else {
+						select_kriz4(osm, "C0", count,
+							pos_x, pos_y,
+							dir);
+					}
+				}
+				else {
+					/* 'st' */
+					int pos_x, pos_y, dir, count;
+					char str_path_buf[512];
+					if (sscanf(&line_buf[2], "%d %d %d %s %d", &pos_x, &pos_y, &dir, str_path_buf, &count) < 5) {
+						fprintf(stderr,
+							"Chyba na riadku %d: Za 'os' musi nasledovat <pos_x> <pos_y> <dir> <sng.path> <count>\n",
+							line);
+						free_kriz(osm);
+						if (!*def_cesta)
+							free_cesty(cst);
+						return 0;
+					}
+					else {
+						/* TODO path checks */
+					
+						if (!test_path(str_path_buf))
+						{
+							fprintf(stderr,
+								"Chyba na riadku %d: Specifikator cesty '%s' je nespravny\n",
+								line, str_path_buf);
+							free_kriz(osm);
+							if (!*def_cesta)
+								free_cesty(cst);
+							return 0;
+
+						}
+						
+						select_kriz4(osm, str_path_buf, count,
+							pos_x, pos_y,
+							dir);
+					}
+
+				}
 			}
 		}
 	}
@@ -678,6 +744,7 @@ lusti_kriz3_6 (char *file_1, char *file_2, int ignore_multiple,
 		}
 	}
 	print_kriz3 (&osm);
+	//print_kriz3_log(&osm, stdout);
 	free_kriz (&osm);
 	if (!def_cesta)
 		free_cesty (&cst);

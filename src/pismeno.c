@@ -15,6 +15,16 @@ get_pism (int num)
 	return pism[num];
 }
 
+const char*
+get_pism_vis(int num)
+{
+	if (num)
+		return pism[num];
+	else
+		return ".";
+}
+
+
 struct pismeno
 get_table (struct table *tbl, char key)
 {

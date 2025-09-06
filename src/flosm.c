@@ -73,6 +73,22 @@ get_pismeno (OSEMSM * krz, int pos_x, int pos_y)
 	return krz->pole[get_pos (krz, pos_x, pos_y)];
 }
 
+/* protected, tests if position is in field */
+struct pismeno
+	get_pismeno2(OSEMSM* krz, int pos_x, int pos_y)
+{
+	if (is_in_kriz(krz, pos_x, pos_y))
+		return krz->pole[get_pos(krz, pos_x, pos_y)];
+	else 
+	{
+		struct pismeno pism;
+		pism.id = 0;
+		pism.l = 0;
+		return pism;
+	}
+}
+
+
 void
 set_pismeno (OSEMSM * krz, int pos_x, int pos_y, struct pismeno chr)
 {
@@ -187,6 +203,40 @@ select_kriz3 (struct osemsm *osm, char *pth, struct slovo *wrd,
 		get_next_word_in_dir (osm, pom_x, pom_y, dir, &pom_x, &pom_y);
 	}
 }
+
+void
+select_kriz4(struct osemsm* osm, char* pth, int word_len,
+	int sx, int sy, int dr)
+{
+
+	int     pom_x = sx, pom_y = sy, i;
+	int     dir;
+	struct num_path pth1;
+
+	/*printf("Direction: %d\n", dr);*/
+	if (!create_path_str2_numpath(&pth1, dr, pth)) {
+		fprintf(stderr, "Nepodarilo sa vytvorit cestu.\n");
+		return;
+	}
+
+	/*	printf("Path: %s\n", pth);
+		printf("wrd->count: %d", wrd->count);*/
+	printf("Explicitne vyskrtavanie ");
+	for (i = 0; i < word_len; i++) {
+
+		/*	printf("[%d,%d]",pom_x,pom_y);*/
+		set_bit_bitmap2d_ulm(&osm->bitmap, pom_x, pom_y);
+		get_dir_num_numpath(&pth1, i, &dir);
+
+		printf("%s", get_pism_vis(get_pismeno2(osm, pom_x, pom_y).l));
+		/*	printf("(%d) --> ", dir);*/
+		get_next_word_in_dir(osm, pom_x, pom_y, dir, &pom_x, &pom_y);
+		
+	}
+	printf(":\n");
+	printf(" -> %d,%d | dir: %d  == %d,%d (cesta: %s)\n", sx, sy, dr, smery_get_dx(dr), smery_get_dy(dr), pth);
+}
+
 
 void
 write_sused (struct osemsm *krz, int sx, int sy, int kx, int ky, int dir)

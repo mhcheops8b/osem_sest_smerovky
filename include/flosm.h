@@ -40,6 +40,8 @@ void    select_kriz2 (struct osemsm *osm, struct num_path *pth, int sx,
 		      int sy, int num);
 void    select_kriz3 (struct osemsm *osm, char *pth, struct slovo *wrd,
 		      int sx, int sy, int dr);
+void	select_kriz4(struct osemsm* osm, char* pth, int word_len,
+	int sx, int sy, int dr);
 void    write_sused (struct osemsm *krz, int sx, int sy, int kx, int ky,
 		     int dir);
 void    print_kriz2 (struct osemsm *osm);

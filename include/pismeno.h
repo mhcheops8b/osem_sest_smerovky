@@ -29,6 +29,7 @@ typedef struct pismeno
 }
 Pismeno;
 const char *get_pism (int num);
+const char* get_pism_vis(int num);
 struct pismeno get_table (struct table *tbl, char key);
 int     compare_pism_to_pism (Pismeno * pism1, Pismeno * pism2);
 int     compare_pism_to_pism_with_quest (struct pismeno *p1,

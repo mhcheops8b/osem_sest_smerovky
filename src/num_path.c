@@ -622,6 +622,46 @@ get_length_path (char *path)
 }
 
 int
+test_path(char* path)
+{
+	char* pom = path;
+	int     pocet = 0;
+
+	if (pom == NULL)
+		return 0;
+	if (*pom == 'C' || *pom == 'F' || *pom == 'O')
+		pom++;
+	else
+		return 0;
+	while (*pom && *pom != 'C' && *pom != 'F' && *pom != 'O') {
+		switch (*pom) {
+		case 'I':
+		case '0':
+		case '+':
+		case '-':
+			pocet++;
+			pom++;
+			break;
+		case 'P':
+		case 'M':
+			pom++;
+			if (!*pom || *pom < '0' || *pom > '9') {
+				fprintf(stderr, "Za 'P' a 'M' musi byt cislo 0-9, nespravny znak '%c'. ", *pom);
+				return 0;
+			}
+			pocet++;
+			pom++;
+			break;
+		default:
+			fprintf(stderr, "Nespravny znak '%c' v specifikacii cesty. ", *pom);
+			return 0;
+		}
+	}
+	return pocet;
+}
+
+
+int
 get_dir_val (char **prg, int zac_dir, int old_val, int *new_val)
 {
 	char   *pom = *prg;

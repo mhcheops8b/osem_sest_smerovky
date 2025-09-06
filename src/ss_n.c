@@ -1016,7 +1016,7 @@ create_slovo (char *poc, struct slovo *slv)
 			if (pom_c == 3)
 				val = 10;
 			slv->pism[i].id = 0;
-			slv->pism[i++].l = val;
+			slv->pism[i++].l = (char)val;
 			break;
 		}
 		pom++;
@@ -1327,7 +1327,7 @@ strip_path (char *path)
 		return pom + 1;
 }
 
-void test_get_pos() 
+void test_get_pos(void) 
 {
 	printf("id: 0\n");
 	SESTSM testobr;
@@ -1368,6 +1368,40 @@ void test_get_pos()
 int
 main (int argc, char **argv)
 {
+	//char** pokus = (char **)malloc(sizeof(char*)*2);
+	//if (pokus != NULL) {
+	//	printf("%p\n", pokus);
+	//	printf("%zd\n", sizeof(pokus[0]));
+	//	printf("%zd\n", sizeof(pokus[1]));
+	//	pokus[0] = (char*)malloc(10 * sizeof(char));
+	//	if (pokus[0] != NULL) {
+	//	printf("%p\n", pokus[0]);
+	//	for (int i = 0; i < 9; i++)
+	//		pokus[0][i] = 'A';
+	//	pokus[0][9] = '\0';
+	//	printf("%s\n", pokus[0]);
+	//	free((void*)pokus[0]);
+	//	}
+	//	pokus[1] = (char*)malloc(15 * sizeof(char));
+	//	if (pokus[1] != NULL) {
+	//	printf("%p\n", pokus[1]);
+	//	for (int i = 0; i < 14; i++)
+	//		pokus[1][i] = 'B';
+	//	pokus[1][14] = '\0';
+	////pokus[1] = NULL;
+
+	//	
+	//	printf("%s\n", pokus[1]);
+	//	free((void*)pokus[1]);
+	//	}
+	//}
+	//
+	//
+	//free((void*)pokus);
+	//pokus = NULL;
+	//return;
+
+
 	//char buffer[1024];
 	//printf("%s\n", _getcwd(buffer, 1024));
 	//printf("%s\n", argv[1]);

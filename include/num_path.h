@@ -34,6 +34,8 @@ int     create_path_str2_numpath (struct num_path *pth, int zac_dir,
 int     get_dir_num_numpath (struct num_path *pth, int dir_pos,
 			     int *new_dir_num);
 
+int		test_path(char* path);
+
 /* to str_path */
 int     parse_path_dir_str (char *path, int zac_dir, int cur_dir,
 			    int i_allowed, int *dir_len, int *dir_val);
