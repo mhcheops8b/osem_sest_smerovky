@@ -745,6 +745,8 @@ lusti_kriz3_6 (char *file_1, char *file_2, int ignore_multiple,
 	}
 	print_kriz3 (&osm);
 	//print_kriz3_log(&osm, stdout);
+	printf("Po vyskrtavani:\n");
+	print_kriz_field(&osm);
 	free_kriz (&osm);
 	if (!def_cesta)
 		free_cesty (&cst);

@@ -149,6 +149,11 @@ free_kriz (struct osemsm *osm)
 		free_specchar_list (&osm->spec);
 		osm->spec = NULL;
 	}
+	if (osm->spec_char_specif) {
+		clear_spec_char_spec(&osm->spec_char_specif);
+		osm->spec_char_specif = NULL;
+	}
+
 	if (osm->qpart)
 		free_q_part (&osm->qpart);
 
@@ -518,3 +523,99 @@ print_masks (OSEMSM * krz)
 								       osm_size)]);
 	}
 }
+
+void print_kriz_field(OSEMSM* osm)
+{
+	int     i, j;
+
+	if (osm->mask != NULL) {
+		for (i = 0; i < get_size_y_osm_size(&osm->osm_size); i++) {
+			for (j = 0; j < get_size_x_osm_size(&osm->osm_size);
+				j++) {
+				if (j)
+					printf(" ");
+				if (!get_bit_bitmap2d_ulm(&osm->bitmap, j, i)) {
+					if (!get_pismeno2(osm, j, i).id) {
+						printf("%s", get_pism_vis(get_pismeno2(osm, j, i).l));
+					}
+					else {
+						
+						struct spec_char_spec* spc = get_spec_char_spec_by_id(osm->spec_char_specif, get_pismeno2(osm, j, i).id);
+						//printf("%p", osm->spec_char_specif);
+						if (spc != NULL) {
+							//printf("HERE");
+							// test if spec char is partially selected
+							int found = 0;
+							for (int i = 0; !found && i < spc->s; i++) 
+								for (int j = 0; !found && j < spc->r; j++) {
+									if (get_bit_bitmap2d_ulm(&osm->bitmap,
+										spc->pos_x + i,
+										spc->pos_y + j)) {
+										found = 1;
+									}
+								}
+							if (found) 
+								printf(".");
+								
+						}
+						else
+							printf("%c", '?');
+					}
+				}
+				else
+					printf(".");
+			}
+			printf("\n");
+		}
+	}
+}
+
+/* ---- spec_char_spec ----- */
+int init_spec_char_spec(struct spec_char_spec** spc, int id, int pos_x,
+int pos_y, int s, int r) {
+	*spc = (struct spec_char_spec*)malloc(sizeof(struct spec_char_spec));
+	if (*spc == NULL) {
+		fprintf(stderr, "Chyba: Nepodarilo sa alokovat pamat pre spec_char_spec.\n");
+		return 0;
+	}
+	//printf("\nIn func: %p\n", *spc);
+	(*spc)->id = id;
+	(*spc)->pos_x = pos_x;
+	(*spc)->pos_y = pos_y;
+	(*spc)->s = s;
+	(*spc)->r = r;
+	(*spc)->next = NULL;
+	return 1;
+}
+
+int add_to_spec_char_spec(struct spec_char_spec* spc, int id, int pos_x,
+	int pos_y, int s, int r) {
+	struct spec_char_spec* pom = spc;
+	while (pom->next) {
+		pom = pom->next;
+	}
+
+	return init_spec_char_spec(&pom->next, id, pos_x, pos_y, s, r);
+}
+
+void clear_spec_char_spec(struct spec_char_spec** spc) {
+	struct spec_char_spec* pom = *spc, *pom1;
+	while (pom) {
+		pom1 = pom->next;
+		free((void*)pom);
+		pom = pom1;
+	}
+	*spc = NULL;
+}
+
+struct spec_char_spec* get_spec_char_spec_by_id(struct spec_char_spec* spc, int id) {
+	while (spc) {
+		if (spc->id == id) {
+			return spc;
+		}
+		spc = spc->next;
+	}
+	return NULL;
+}
+
+

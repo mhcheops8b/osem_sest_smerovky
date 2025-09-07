@@ -9,6 +9,23 @@
 #include "num_path.h"
 #include "slovo.h"
 
+/* spec char specification linked list */
+
+struct spec_char_spec {
+	int id;
+	int pos_x, pos_y, s, r;
+	struct spec_char_spec* next;
+};
+
+int init_spec_char_spec(struct spec_char_spec** spc, int id, int pos_x,
+	int pos_y, int s, int r);
+int add_to_spec_char_spec(struct spec_char_spec* spc, int id, int pos_x,
+	int pos_y, int s, int r);
+void clear_spec_char_spec(struct spec_char_spec** spc);
+
+struct spec_char_spec* 
+	get_spec_char_spec_by_id(struct spec_char_spec* spc, int id);
+
 typedef struct osemsm
 {
 	Osm_size osm_size;
@@ -16,6 +33,7 @@ typedef struct osemsm
 	struct pismeno *pole;
 	Bitmap_2D_ulm bitmap;
 	struct spec_char *spec;
+	struct spec_char_spec* spec_char_specif;
 	unsigned int *id;
 	struct q_part *qpart;
 	unsigned char *mask;
@@ -50,6 +68,11 @@ void    print_kriz3_log (struct osemsm *osm, FILE * fou);
 void    print_kriz3_log2 (struct osemsm *osm, FILE * fou);
 void    replace_id (struct osemsm *osm, int sx, int sy, int val);
 void print_masks (OSEMSM * krz);
+void	print_kriz_field(struct osemsm* osm);
+
+
+
+
 
 /* */
 #endif

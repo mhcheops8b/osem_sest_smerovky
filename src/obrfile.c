@@ -569,6 +569,7 @@ create_kriz (char *filename, struct osemsm *osm)
 
 	set_size_osm_size (&osm->osm_size, siz_x, siz_y);
 	osm->spec = NULL;
+	osm->spec_char_specif = NULL;
 
 	if (read_data_osm (fil, &line, filename, osm) != OK_DATA) {
 		free_kriz (osm);
@@ -622,6 +623,21 @@ create_kriz (char *filename, struct osemsm *osm)
 								     y + j,
 								     pis);
 						}
+					if (osm->spec_char_specif) {
+						if (!add_to_spec_char_spec(osm->spec_char_specif, id,
+							x, y, s, r)) {
+							free_kriz(osm);
+							return 0;
+						}
+					}
+					else {
+						if (!init_spec_char_spec(&osm->spec_char_specif, id,
+							x, y, s, r)) {
+								free_kriz(osm);
+								return 0;
+							}
+					}
+					printf("III: %p", osm->spec_char_specif);
 				}
 				else {
 					if (!read_m_section
